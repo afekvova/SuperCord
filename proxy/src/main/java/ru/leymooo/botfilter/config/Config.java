@@ -28,6 +28,7 @@ import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
+import sun.misc.Unsafe;
 
 public class Config
 {
@@ -257,7 +258,7 @@ public class Config
             Field field = instance.getClass().getField( toFieldName( split[split.length - 1] ) );
             setAccessible( field );
             return field;
-        } catch ( IllegalAccessException | NoSuchFieldException | SecurityException | NoSuchMethodException | InvocationTargetException e )
+        } catch (IllegalAccessException | NoSuchFieldException | SecurityException e )
         {
             BungeeCord.getInstance().getLogger().log( Level.WARNING, "[BotFilter] Invalid config field: {0} for {1}", new Object[]
                 {
@@ -311,7 +312,7 @@ public class Config
                             instance = value;
                             split = Arrays.copyOfRange( split, 1, split.length );
                             continue;
-                        } catch ( NoSuchFieldException | NoSuchMethodException | InvocationTargetException ignore )
+                        } catch (NoSuchFieldException ignore )
                         {
                         }
                         return null;
@@ -353,33 +354,15 @@ public class Config
      * @throws NoSuchFieldException   ...
      * @throws IllegalAccessException ...
      */
-    private void setAccessible(Field field) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException
-    {
-        field.setAccessible( true );
+    private void setAccessible(Field field) throws NoSuchFieldException, IllegalAccessException {
+        field.setAccessible(true);
         int modifiers = field.getModifiers();
-        if ( Modifier.isFinal( modifiers ) )
-        {
-            try
-            {
-                Field modifiersField = Field.class.getDeclaredField( "modifiers" );
-                modifiersField.setAccessible( true );
-                modifiersField.setInt( field, modifiers & ~Modifier.FINAL );
-            } catch ( NoSuchFieldException e )
-            {
-                // Java 12 compatibility *this is fine*
-                Method getDeclaredFields0 = Class.class.getDeclaredMethod( "getDeclaredFields0", boolean.class );
-                getDeclaredFields0.setAccessible( true );
-                Field[] fields = (Field[]) getDeclaredFields0.invoke( Field.class, false );
-                for ( Field classField : fields )
-                {
-                    if ( "modifiers".equals( classField.getName() ) )
-                    {
-                        classField.setAccessible( true );
-                        classField.set( field, modifiers & ~Modifier.FINAL );
-                        break;
-                    }
-                }
-            }
+        if (Modifier.isFinal(modifiers)) {
+            final Field unsafeField = Unsafe.class.getDeclaredField("theUnsafe");
+            unsafeField.setAccessible(true);
+            final Unsafe unsafe = (Unsafe) unsafeField.get(null);
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            unsafe.putInt(modifiersField, unsafe.objectFieldOffset(field), modifiers & ~Modifier.FINAL); // memory corruption
         }
     }
 
