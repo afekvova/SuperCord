@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.Level;
 import lombok.experimental.UtilityClass;
@@ -109,12 +110,13 @@ public class CaptchaGeneration
 
     private String randomAnswer()
     {
-        if ( rnd.nextBoolean() )
+        int length = 3;
+        String pattern = "abcdefghijkmnpqrtuvwxyz1234567890";
+        char[] text = new char[length];
+        for ( int i = 0; i < length; ++i )
         {
-            return Integer.toString( rnd.nextInt( ( 99999 - 10000 ) + 1 ) + 10000 );
-        } else
-        {
-            return Integer.toString( rnd.nextInt( ( 9999 - 1000 ) + 1 ) + 1000 );
+            text[i] = pattern.charAt( ThreadLocalRandom.current().nextInt( pattern.length() ) );
         }
+        return new String( text );
     }
 }
