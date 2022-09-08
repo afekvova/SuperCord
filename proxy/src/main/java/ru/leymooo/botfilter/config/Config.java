@@ -354,10 +354,12 @@ public class Config
      * @throws NoSuchFieldException   ...
      * @throws IllegalAccessException ...
      */
-    private void setAccessible( Field field ) throws NoSuchFieldException, IllegalAccessException {
+    private void setAccessible( Field field ) throws NoSuchFieldException, IllegalAccessException
+    {
         field.setAccessible( true );
         int modifiers = field.getModifiers();
-        if ( Modifier.isFinal( modifiers ) ) {
+        if ( Modifier.isFinal( modifiers ) )
+        {
             final Field unsafeField = Unsafe.class.getDeclaredField( "theUnsafe" );
             unsafeField.setAccessible( true );
             final Unsafe unsafe = ( Unsafe ) unsafeField.get( null );
