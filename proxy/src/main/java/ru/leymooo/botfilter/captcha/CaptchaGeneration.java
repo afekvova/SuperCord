@@ -17,6 +17,7 @@ import ru.leymooo.botfilter.captcha.generator.CaptchaPainter;
 import ru.leymooo.botfilter.captcha.generator.map.CraftMapCanvas;
 import ru.leymooo.botfilter.captcha.generator.map.MapPalette;
 import ru.leymooo.botfilter.packets.MapDataPacket;
+import ru.leymooo.botfilter.config.Settings;
 
 /**
  * @author Leymooo
@@ -111,7 +112,7 @@ public class CaptchaGeneration
     private String randomAnswer()
     {
         int length = 3;
-        String pattern = "abcdefghijkmnpqrtuvwxyz1234567890";
+        String pattern = Settings.IMP.CAPTCHA_PATTERN;
         char[] text = new char[length];
         for ( int i = 0; i < length; ++i )
         {

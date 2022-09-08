@@ -46,6 +46,9 @@ public class Settings extends Config
     public int PROTECTION_THRESHOLD = 30;
     @Comment("Как долго активна автоматическая защита? В миллисекундах. 1 сек = 1000")
     public int PROTECTION_TIME = 120000;
+
+    @Comment("Какие символы будут использоваться в капче")
+    public String CAPTCHA_PATTERN = "abcdefghijkmnpqrtuvwxyz1234567890";
     @Comment("Проверять ли на бота при заходе на сервер во время бот атаки, не зависимо проходил ли проверку или нет")
     public boolean FORCE_CHECK_ON_ATTACK = true;
     @Comment("Показывать ли онлайн с фильтра")
