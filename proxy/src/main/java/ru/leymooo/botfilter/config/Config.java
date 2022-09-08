@@ -258,7 +258,7 @@ public class Config
             Field field = instance.getClass().getField( toFieldName( split[split.length - 1] ) );
             setAccessible( field );
             return field;
-        } catch (IllegalAccessException | NoSuchFieldException | SecurityException e )
+        } catch ( IllegalAccessException | NoSuchFieldException | SecurityException e )
         {
             BungeeCord.getInstance().getLogger().log( Level.WARNING, "[BotFilter] Invalid config field: {0} for {1}", new Object[]
                 {
@@ -312,7 +312,7 @@ public class Config
                             instance = value;
                             split = Arrays.copyOfRange( split, 1, split.length );
                             continue;
-                        } catch (NoSuchFieldException ignore )
+                        } catch ( NoSuchFieldException ignore )
                         {
                         }
                         return null;
@@ -354,15 +354,15 @@ public class Config
      * @throws NoSuchFieldException   ...
      * @throws IllegalAccessException ...
      */
-    private void setAccessible(Field field) throws NoSuchFieldException, IllegalAccessException {
-        field.setAccessible(true);
+    private void setAccessible( Field field ) throws NoSuchFieldException, IllegalAccessException {
+        field.setAccessible( true );
         int modifiers = field.getModifiers();
-        if (Modifier.isFinal(modifiers)) {
-            final Field unsafeField = Unsafe.class.getDeclaredField("theUnsafe");
-            unsafeField.setAccessible(true);
-            final Unsafe unsafe = (Unsafe) unsafeField.get(null);
-            Field modifiersField = Field.class.getDeclaredField("modifiers");
-            unsafe.putInt(modifiersField, unsafe.objectFieldOffset(field), modifiers & ~Modifier.FINAL); // memory corruption
+        if ( Modifier.isFinal( modifiers ) ) {
+            final Field unsafeField = Unsafe.class.getDeclaredField( "theUnsafe" );
+            unsafeField.setAccessible( true );
+            final Unsafe unsafe = ( Unsafe ) unsafeField.get( null );
+            Field modifiersField = Field.class.getDeclaredField( "modifiers" );
+            unsafe.putInt( modifiersField, unsafe.objectFieldOffset( field ), modifiers & ~Modifier.FINAL ); // memory corruption
         }
     }
 
