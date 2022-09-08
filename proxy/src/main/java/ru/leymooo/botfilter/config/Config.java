@@ -10,8 +10,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.AtomicMoveNotSupportedException;
@@ -354,7 +352,7 @@ public class Config
      * @throws NoSuchFieldException   ...
      * @throws IllegalAccessException ...
      */
-    private void setAccessible( Field field ) throws NoSuchFieldException, IllegalAccessException
+    private void setAccessible(Field field) throws NoSuchFieldException, IllegalAccessException
     {
         field.setAccessible( true );
         int modifiers = field.getModifiers();
@@ -362,7 +360,7 @@ public class Config
         {
             final Field unsafeField = Unsafe.class.getDeclaredField( "theUnsafe" );
             unsafeField.setAccessible( true );
-            final Unsafe unsafe = ( Unsafe ) unsafeField.get( null );
+            final Unsafe unsafe = (Unsafe) unsafeField.get( null );
             Field modifiersField = Field.class.getDeclaredField( "modifiers" );
             unsafe.putInt( modifiersField, unsafe.objectFieldOffset( field ), modifiers & ~Modifier.FINAL ); // memory corruption
         }
