@@ -13,11 +13,11 @@ import lombok.experimental.UtilityClass;
 import net.md_5.bungee.BungeeCord;
 import ru.leymooo.botfilter.caching.CachedCaptcha;
 import ru.leymooo.botfilter.caching.PacketUtils;
+import ru.leymooo.botfilter.config.Settings;
 import ru.leymooo.botfilter.captcha.generator.CaptchaPainter;
 import ru.leymooo.botfilter.captcha.generator.map.CraftMapCanvas;
 import ru.leymooo.botfilter.captcha.generator.map.MapPalette;
 import ru.leymooo.botfilter.packets.MapDataPacket;
-import ru.leymooo.botfilter.config.Settings;
 
 /**
  * @author Leymooo
