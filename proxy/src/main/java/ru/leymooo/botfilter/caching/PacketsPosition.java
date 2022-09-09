@@ -1,33 +1,33 @@
 package ru.leymooo.botfilter.caching;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * @author Leymooo
  */
+@UtilityClass
 public final class PacketsPosition
 {
 
-    private PacketsPosition()
-    {
-    }
+    public int LOGIN = 0;
+    public int CHUNK = 1;
+    public int TIME = 2;
+    public int PLAYERABILITIES = 3;
+    public int PLAYERPOSANDLOOK_CAPTCHA = 4;
+    public int SETSLOT_MAP = 5;
+    public int SETSLOT_RESET = 6;
+    public int KEEPALIVE = 7;
+    public int PLAYERPOSANDLOOK = 8;
+    public int SETEXP_RESET = 9;
+    public int PLUGIN_MESSAGE = 10;
 
-    public static int LOGIN = 0;
-    public static int CHUNK = 1;
-    public static int TIME = 2;
-    public static int PLAYERABILITIES = 3;
-    public static int PLAYERPOSANDLOOK_CAPTCHA = 4;
-    public static int SETSLOT_MAP = 5;
-    public static int SETSLOT_RESET = 6;
-    public static int KEEPALIVE = 7;
-    public static int PLAYERPOSANDLOOK = 8;
-    public static int SETEXP_RESET = 9;
-    public static int PLUGIN_MESSAGE = 10;
+    public int MODERN_SETSLOT_MAP = 11;
+    public int MODERN_SETSLOT_RESET = 12;
 
-
-
-    public static int CAPTCHA_FAILED_2_MSG = 0;
-    public static int CAPTCHA_FAILED_1_MSG = 1;
-    public static int CHECKING_MSG = 2;
-    public static int CHECKING_CAPTCHA_MSG = 3;
-    public static int CHECK_SUS_MSG = 4;
+    public int CAPTCHA_FAILED_2_MSG = 0;
+    public int CAPTCHA_FAILED_1_MSG = 1;
+    public int CHECKING_MSG = 2;
+    public int CHECKING_CAPTCHA_MSG = 3;
+    public int CHECK_SUS_MSG = 4;
 
 }

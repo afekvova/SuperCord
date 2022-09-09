@@ -59,6 +59,8 @@ public class Settings extends Config
     public boolean FIX_SCOREBOARD_TEAMS = true;
     @Comment("Записывать ли IP адреса игроков/ботов которые провалили проверку в файл?")
     public boolean SAVE_FAILED_IPS_TO_FILE = true;
+    @Comment("Should captcha be displayed in the left hand. May cause problems with entering captcha for users with 4:3 monitors. Version: 1.9+")
+    public boolean CAPTCHA_LEFT_HAND = false;
 
     public void reload(File file)
     {

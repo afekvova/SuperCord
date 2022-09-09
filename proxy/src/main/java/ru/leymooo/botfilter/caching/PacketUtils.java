@@ -32,7 +32,7 @@ public class PacketUtils
 {
 
     public static final CachedCaptcha captchas = new CachedCaptcha();
-    private static final CachedPacket[] cachedPackets = new CachedPacket[11];
+    private static final CachedPacket[] cachedPackets = new CachedPacket[13];
     private static final HashMap<KickType, CachedPacket> kickMessagesGame = new HashMap<>( 3 );
     private static final HashMap<KickType, CachedPacket> kickMessagesLogin = new HashMap<>( 4 );
     public static int PROTOCOLS_COUNT = ProtocolConstants.SUPPORTED_VERSION_IDS.size();
@@ -116,6 +116,8 @@ public class PacketUtils
             new PlayerPositionAndLook( 7.00, 450, 7.00, 90f, 10f, 9876, false ), //8
             new SetExp( 0, 0, 0 ), //9
             createPluginMessage(), //10
+            new SetSlot( 0, 45, 358, 1, 0 ), //11 map 1.9+, left hand
+            new SetSlot( 0, 45, -1, 0, 0 ), //12 map reset
         };
 
         for ( int i = 0; i < packets.length; i++ )

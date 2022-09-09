@@ -15,6 +15,7 @@ import net.md_5.bungee.compress.PacketDecompressor;
 import net.md_5.bungee.netty.ChannelWrapper;
 import net.md_5.bungee.protocol.PacketWrapper;
 import net.md_5.bungee.protocol.Protocol;
+import net.md_5.bungee.protocol.ProtocolConstants;
 import net.md_5.bungee.protocol.packet.Chat;
 import net.md_5.bungee.protocol.packet.ClientChat;
 import net.md_5.bungee.protocol.packet.ClientSettings;
@@ -167,7 +168,7 @@ public class Connector extends MoveHandler
         {
             if ( state == CheckState.CAPTCHA_POSITION && aticks < TOTAL_TICKS )
             {
-                channel.writeAndFlush( PacketUtils.getCachedPacket( PacketsPosition.SETSLOT_RESET ).get( version ), channel.voidPromise() );
+                channel.writeAndFlush( PacketUtils.getCachedPacket( ProtocolConstants.MINECRAFT_1_9 <= version && Settings.IMP.CAPTCHA_LEFT_HAND ? PacketsPosition.MODERN_SETSLOT_RESET : PacketsPosition.SETSLOT_RESET ).get( version ), channel.voidPromise() );
                 state = CheckState.ONLY_POSITION;
             } else
             {
@@ -355,7 +356,7 @@ public class Connector extends MoveHandler
     {
         CaptchaHolder captchaHolder = PacketUtils.captchas.randomCaptcha();
         captchaAnswer = captchaHolder.getAnswer();
-        channel.write( PacketUtils.getCachedPacket( PacketsPosition.SETSLOT_MAP ).get( version ), channel.voidPromise() );
+        channel.write( PacketUtils.getCachedPacket( ProtocolConstants.MINECRAFT_1_9 <= version && Settings.IMP.CAPTCHA_LEFT_HAND ? PacketsPosition.MODERN_SETSLOT_MAP : PacketsPosition.SETSLOT_MAP ).get( version ), channel.voidPromise() );
         captchaHolder.write( channel, version, true );
     }
 
